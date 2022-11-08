@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Viper Code - Blogs</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Josefin+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&display=swap"
+        rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/5.0.0/mdb.dark.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css"
+        integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="assets/css/aos.css" />
+</head>
+
+<body>
+
+    <!-- Header -->
+    <header class="header header-blog-detail" id="home">
+        <div class="header-box">
+            <h1>Learn Golang</h1>
+            <p>Learn golang easily only on this website.</p>
+            <button type="button"
+                class="btn btn-outline-white btn-rounded mt-4 p-4 d-inline-block d-xl-inline-block d-inline-md-block d-sm-none"
+                id="toNavbar">
+                <i class="fas fa-arrow-down fa-4x"></i>
+            </button>
+        </div>
+    </header>
+    <!-- End header -->
+
+    <!-- Content -->
+    <div class="container">
+
+        <!-- Navbar -->
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top" id="navbar">
+            <div class="container-fluid">
+                <a class="navbar-brand" href="#">Viper Code</a>
+                <button class="navbar-toggler" type="button" data-mdb-toggle="collapse" data-mdb-target="#navbarNav"
+                    aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <i class="fas fa-bars"></i>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav me-auto" id="topLinks">
+                        <li class="nav-item">
+                            <a class="nav-link" href="index.html">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link active" href="blogs.html">Blogs</a>
+                        </li>
+                    </ul>
+                    <form class="d-flex input-group w-auto">
+                        <input type="search" class="form-control rounded" placeholder="Search" aria-label="Search"
+                            aria-describedby="search-addon" />
+                        <span class="input-group-text border-0" id="search-addon">
+                            <i class="fas fa-search"></i>
+                        </span>
+                    </form>
+                </div>
+            </div>
+        </nav>
+        <!-- Navbar -->
+
+        <!-- Main Article -->
+        <div class="row">
+
+            <!-- Main Article -->
+            <div class="col-xl-8 col-md-12 mb-4">
+                <div class="row">
+                    <div class="d-flex align-items-center justify-content-between mb-2">
+                        <h2 class="fw-bold">Learn Golang</h2>
+                        <button type="button" class="btn btn-primary" data-mdb-toggle="modal"
+                            data-mdb-target="#addBlogModal">Edit Post</button>
+                    </div>
+                    <div class="col-xl-12 col-md-12 mb-4">
+                        <p>
+                            Lorem ipsum dolor sit amet consectetur, adipisicing elit. Consectetur nostrum aspernatur
+                            amet recusandae, laboriosam, eveniet minus officia aliquid quisquam tempora minima enim
+                            nemo, velit voluptates quas ea obcaecati ullam quo?
+                        </p>
+                        <p>
+                            Lorem ipsum dolor sit, amet consectetur adipisicing elit. Illo provident repudiandae, labore
+                            nulla aut, aliquid nobis ullam, exercitationem voluptatibus veniam fuga! Ad maxime veritatis
+                            magni quisquam eum eius ex rerum!
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <!-- Main Article -->
+
+            <!-- Sidebar -->
+            <div class="col-xl-4 col-md-12 mb-4">
+                <div class="d-flex align-items-center justify-content-between mb-2">
+                    <h2 class="fw-bold">Related Posts</h2>
+                </div>
+
+                <div class="row">
+                    <div class="col-xl-12 col-md-12 mb-2" data-aos="flip-up" data-aos-duration="1000"
+                        data-aos-easing="ease-in-out">
+                        <div class=" card">
+                            <h5 class="card-header">Featured</h5>
+                            <div class="card-body">
+                                <h5 class="card-title">Special title treatment</h5>
+                                <p class="card-text">With supporting text below as a natural lead-in to additional
+                                    content.</p>
+                                <a href="#" class="btn btn-primary">Go somewhere</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Sidebar -->
+        </div>
+    </div>
+    <!-- Content -->
+
+    <!-- Model Add Blog -->
+    <div class="modal fade" id="addBlogModal" tabindex="-1" aria-labelledby="addBlogModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="addBlogModalLabel">Modal title</h5>
+                    <button type="button" class="btn-close" data-mdb-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">...</div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-mdb-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Save changes</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Modal Add Blog -->
+
+    <!-- Footer -->
+    <footer class="text-center text-lg-start bg-dark text-muted mt-5">
+        <!-- Section: Social media -->
+        <section class="d-flex justify-content-center justify-content-lg-between p-4 border-bottom">
+            <!-- Left -->
+            <div class="me-5 d-none d-lg-block">
+                <span>Get connected with me on social networks:</span>
+            </div>
+            <!-- Left -->
+
+            <!-- Right -->
+            <div>
+                <a href="https://facebook.com/fajhrinazgul" target="_blank" class="me-4 link-secondary">
+                    <i class="fab fa-facebook-f"></i>
+                </a>
+                <a href="https://twitter.com/" target="_blank" class="me-4 link-secondary">
+                    <i class="fab fa-twitter"></i>
+                </a>
+                <a href="https://www.youtube.com/channel/UCqLD6Vs3HG8UqfyxR1UAzXQ" target="_blank"
+                    class="me-4 link-secondary">
+                    <i class="fab fa-youtube"></i>
+                </a>
+                <a href="https://instagram.com/python_procode" target="_blank" class="me-4 link-secondary">
+                    <i class="fab fa-instagram"></i>
+                </a>
+                <a href="https://linkedin.com/mwlite/in/fajri-fath-ba73b1222" target="_blank"
+                    class="me-4 link-secondary">
+                    <i class="fab fa-linkedin"></i>
+                </a>
+                <a href="https://github.com/aZ4ziL" target="_blank" class="me-4 link-secondary">
+                    <i class="fab fa-github"></i>
+                </a>
+            </div>
+            <!-- Right -->
+        </section>
+        <!-- Section: Social media -->
+
+        <!-- Section: Links  -->
+        <section class="">
+            <div class="container text-center text-md-start mt-5">
+                <!-- Grid row -->
+                <div class="row mt-3">
+                    <!-- Grid column -->
+                    <div class="col-md-3 col-lg-4 col-xl-3 mx-auto mb-4">
+                        <!-- Content -->
+                        <h6 class="text-uppercase fw-bold mb-4">
+                            <i class="fas fa-gem me-3 text-secondary"></i>Viper Code
+                        </h6>
+                        <p>
+                            This website is a personal website owned by <a
+                                href="https://facebook.com/fajhrinazgul">Fajri Fath</a> which is useful for storing all
+                            knowledge about the computer world.
+                        </p>
+                    </div>
+                    <!-- Grid column -->
+
+                    <!-- Grid column -->
+                    <div class="col-md-2 col-lg-2 col-xl-2 mx-auto mb-4">
+                        <!-- Links -->
+                        <h6 class="text-uppercase fw-bold mb-4">
+                            Products
+                        </h6>
+                        <p>
+                            <a href="#!" class="text-reset">Angular</a>
+                        </p>
+                        <p>
+                            <a href="#!" class="text-reset">React</a>
+                        </p>
+                        <p>
+                            <a href="#!" class="text-reset">Vue</a>
+                        </p>
+                        <p>
+                            <a href="#!" class="text-reset">Laravel</a>
+                        </p>
+                    </div>
+                    <!-- Grid column -->
+
+                    <!-- Grid column -->
+                    <div class="col-md-3 col-lg-2 col-xl-2 mx-auto mb-4">
+                        <!-- Links -->
+                        <h6 class="text-uppercase fw-bold mb-4">
+                            Useful links
+                        </h6>
+                        <p>
+                            <a href="blogs.html" class="text-reset">Blogs</a>
+                        </p>
+                        <p>
+                            <a href="#!" class="text-reset">Pricing</a>
+                        </p>
+                        <p>
+                            <a href="#!" class="text-reset">Settings</a>
+                        </p>
+                        <p>
+                            <a href="#!" class="text-reset">Orders</a>
+                        </p>
+                        <p>
+                            <a href="#!" class="text-reset">Help</a>
+                        </p>
+                    </div>
+                    <!-- Grid column -->
+
+                    <!-- Grid column -->
+                    <div class="col-md-4 col-lg-3 col-xl-3 mx-auto mb-md-0 mb-4">
+                        <!-- Links -->
+                        <h6 class="text-uppercase fw-bold mb-4">Contact</h6>
+                        <p><i class="fas fa-home me-3 text-secondary"></i> Padang, Indonesia(ID)</p>
+                        <p>
+                            <i class="fas fa-envelope me-3 text-secondary"></i>
+                            vipercode305@gmail.com
+                        </p>
+                        <p><i class="fas fa-phone me-3 text-secondary"></i> +628 (31 2219 5957)</p>
+                        <p><i class="fas fa-print me-3 text-secondary"></i> + 01 234 567 89</p>
+                    </div>
+                    <!-- Grid column -->
+                </div>
+                <!-- Grid row -->
+            </div>
+        </section>
+        <!-- Section: Links  -->
+
+        <!-- Copyright -->
+        <div class="text-center p-4" style="background-color: rgba(0, 0, 0, 0.025);">
+            © 2022 Copyright:
+            <a class="text-reset fw-bold" href="https://mdbootstrap.com/">ViperCode.com</a>
+        </div>
+        <!-- Copyright -->
+    </footer>
+    <!-- Footer -->
+
+    <!-- MDB -->
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/5.0.0/mdb.min.js"></script>
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
+    <script src="assets/js/aos.min.js"></script>
+    <script>AOS.init();</script>
+    <script src="assets/js/style.js"></script>
+</body>
+
+</html>

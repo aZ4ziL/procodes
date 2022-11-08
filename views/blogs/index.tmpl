@@ -1,0 +1,40 @@
+{{ define "title" }}Blog - Procodes{{ end }}
+
+{{ define "content" }}
+<!-- Main Article -->
+<div class="col-xl-8 col-md-12 mb-4">
+    <div class="row">
+        <div class="d-flex align-items-center justify-content-between mb-2 mt-4">
+            <h2 class="fw-bold">New Posts</h2>
+            {{ if .user }}
+            {{ if .user.IsSuperuser }}
+            <button type="button" class="btn btn-primary" data-mdb-toggle="modal" data-mdb-target="#addBlogModal">Add
+                Post</button>
+            {{ end }}
+            {{ end }}
+        </div>
+
+        {{ range $key, $val := .articles }}
+        <div class="col-xl-6 col-md-12 mb-4" data-aos="fade-{{ if $key | isPrime }}left{{ else }}right{{ end }}"
+            data-aos-duration="1000" data-aos-easing="ease-in-out">
+            <div class="card shadow h-100">
+                <div class="bg-image hover-overlay ripple" data-mdb-ripple-color="light">
+                    <img src="{{ $val.Logo }}" alt="{{ $val.Title }}" class="img-fluid" />
+                    <a href="#!">
+                        <div class="mask" style="background-color: rgba(251, 251, 251, 0.15);"></div>
+                    </a>
+                </div>
+                <div class="card-body">
+                    <h5 class="card-title">{{ $val.Title }}</h5>
+                    <p class="card-text">
+                        {{ $val.Desc }}
+                    </p>
+                    <a href="detail.html" class="btn btn-primary">Read More</a>
+                </div>
+            </div>
+        </div>
+        {{ end }}
+    </div>
+</div>
+<!-- Main Article -->
+{{ end }}

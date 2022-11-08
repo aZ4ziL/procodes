@@ -1,0 +1,70 @@
+* {
+    font-family: 'Josefin Sans', sans-serif;
+}
+
+a:hover {
+    text-decoration: none;
+}
+
+.header,
+body {
+    background-image: url(../img/mateo-avila-chinchilla-x_8oJhYU31k-unsplash.jpg);
+    min-height: 90vh;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    backface-visibility: hidden;
+    background-attachment: fixed;
+}
+
+.navbar {
+    border-radius: 1rem;
+}
+
+.container {
+    background-color: #303030;
+    border-radius: 1rem;
+}
+
+.header.header-blog-detail {
+    min-height: 70vh;
+}
+
+.header.header-blog-detail .header-box {
+    top: 40%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.header-box {
+    text-align: center;
+    width: 50%;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    transition: .5s ease;
+}
+
+.header-box h1 {
+    font-size: 40pt;
+    font-weight: bold;
+}
+
+.header-box p {
+    font-style: italic;
+}
+
+/* Links */
+#topLinks a:hover {
+    text-decoration: underline;
+}
+
+.footer-box {
+    background-color: #303030;
+    padding: 10px;
+}
+
+#header-title {
+    font-size: 40pt;
+}
