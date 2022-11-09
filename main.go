@@ -5,6 +5,7 @@ import (
 	"time"
 
 	"github.com/aZ4ziL/procodes/controllers"
+	"github.com/aZ4ziL/procodes/handlers"
 	"github.com/aZ4ziL/procodes/models"
 	"github.com/gin-contrib/sessions"
 	gormsession "github.com/gin-contrib/sessions/gorm"
@@ -30,6 +31,15 @@ func main() {
 	router.Use(sessions.Sessions("procodesSessionID", store))
 
 	router.SetTrustedProxies([]string{"127.0.0.1"})
+
+	hub := handlers.NewHub()
+
+	go hub.Run()
+
+	router.GET("/ws", func(ctx *gin.Context) {
+		roomID := ctx.Param("roomid")
+		handlers.ServeWS(hub, roomID, ctx.Writer, ctx.Request)
+	})
 
 	controllers.ControllerApiV1(router)
 	controllers.IndexController(router)
