@@ -192,6 +192,7 @@ func (a apiV1Blog) UpdateArticle() gin.HandlerFunc {
 			return
 		}
 
+		id := ctx.PostForm("id")
 		categoryID := ctx.PostForm("category_id")
 		authorID := ctx.PostForm("author_id")
 		title := ctx.PostForm("title")
@@ -200,28 +201,35 @@ func (a apiV1Blog) UpdateArticle() gin.HandlerFunc {
 		content := ctx.PostForm("content")
 		status := ctx.PostForm("status")
 
-		h, err := ctx.FormFile("logo")
-		if err != nil {
-			log.Println("logo is blank")
-		}
-
-		filename := "media/articles/" + uuid.NewString() + h.Filename
-
 		// Parse string to int
 		categoryIDInt, _ := strconv.Atoi(categoryID)
 		authorIDInt, _ := strconv.Atoi(authorID)
+		idInt, _ := strconv.Atoi(id)
 
-		article, err := models.GetArticleBySlug(slug)
+		article, err := models.GetArticleByID(uint(idInt))
 		if err != nil {
 			ctx.JSON(http.StatusNotFound, nil)
 			return
 		}
 
-		// Remove old file logo
-		err = os.Remove("." + article.Logo)
+		var filename string
+		h, err := ctx.FormFile("logo")
 		if err != nil {
-			http.Error(ctx.Writer, err.Error(), http.StatusInternalServerError)
-			return
+			filename = article.Logo[1:]
+		} else {
+			filename = "media/articles/" + uuid.NewString() + h.Filename
+
+			// Remove old file logo
+			err = os.Remove("." + article.Logo)
+			if err != nil {
+				http.Error(ctx.Writer, err.Error(), http.StatusInternalServerError)
+				return
+			}
+
+			if err := ctx.SaveUploadedFile(h, filename); err != nil {
+				http.Error(ctx.Writer, err.Error(), http.StatusInternalServerError)
+				return
+			}
 		}
 
 		article.CategoryID = uint(categoryIDInt)
@@ -232,11 +240,6 @@ func (a apiV1Blog) UpdateArticle() gin.HandlerFunc {
 		article.Desc = desc
 		article.Content = content
 		article.Status = status
-
-		if err := ctx.SaveUploadedFile(h, filename); err != nil {
-			http.Error(ctx.Writer, err.Error(), http.StatusInternalServerError)
-			return
-		}
 
 		models.GetDB().Save(&article)
 

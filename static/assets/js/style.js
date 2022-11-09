@@ -41,13 +41,13 @@ function closeCollapse() {
 
 
 // Typing
-document.addEventListener("DOMContentLoaded", function() {
+document.addEventListener("DOMContentLoaded", function () {
     new TypeIt("#header-text", {
         waitUntilVisible: true,
         speed: 40,
         strings: [
-            "Website ini adalah website pribadi yang berjalan pada server Ubuntu Linux. Dan dibangun oleh bahasa pemrograman Go.",
-            "Didesain oleh <a href='https://www.facebook.com'>Fajri Fath</a> dengan bantuan framework Bootstrap dan Javascript Vanilla.",
+            "This website is a personal website running on an Ubuntu Linux server. And built by the programming language Go.",
+            "Didesain oleh Fajri Fath dengan bantuan framework Bootstrap dan Javascript Vanilla.",
             // "<button class='btn btn-outline-dark'><a href=''><i class='fas fa-arrow-down fa-4x'></a></button>",
         ]
     }).go();

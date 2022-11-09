@@ -133,6 +133,7 @@ func (a apiV1Authentication) Auth() gin.HandlerFunc {
 		expirationTime := time.Now().Add(30 * time.Hour)
 		// Create JWT Claims, which includes the username and expired time
 		claims := &Claims{
+			ID:          user.ID,
 			Username:    user.Username,
 			FirstName:   user.FirstName,
 			LastName:    user.LastName,

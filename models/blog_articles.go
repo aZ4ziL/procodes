@@ -28,6 +28,13 @@ func CreateNewBlogArticle(article *BlogArticle) error {
 	return err
 }
 
+// GetArticleByID
+func GetArticleByID(id uint) (BlogArticle, error) {
+	var article BlogArticle
+	err := db.Model(&BlogArticle{}).Where("id = ?", id).First(&article).Error
+	return article, err
+}
+
 // GetArticleBySlug
 // return article by passing the SLUG
 func GetArticleBySlug(slug string) (BlogArticle, error) {
