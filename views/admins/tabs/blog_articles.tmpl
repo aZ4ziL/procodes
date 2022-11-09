@@ -1,0 +1,44 @@
+{{ define "blog_articles" }}
+<div class="tab-pane fade" id="ex3-tabs-3" role="tabpanel" aria-labelledby="ex3-tab-3">
+    <h1>Blog Article</h1>
+
+    <div class="table-responsive">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">ID</th>
+                    <th scope="col">Category ID</th>
+                    <th scope="col">Author ID</th>
+                    <th scope="col">Title</th>
+                    <th scope="col">Slug</th>
+                    <th scope="col">Logo</th>
+                    <th scope="col">Desc</th>
+                    <th scope="col">Content</th>
+                    <th scope="col">Status</th>
+                    <th scope="col">Updated at</th>
+                    <th scope="col">Created at</th>
+                </tr>
+            </thead>
+            <tbody>
+                {{ range .articles }}
+                <tr>
+                    <th scope="row">{{ .ID }}</th>
+                    <td>{{ .CategoryID }}</td>
+                    <td>{{ .AuthorID }}</td>
+                    <td>{{ .Title }}</td>
+                    <td>{{ .Slug }}</td>
+                    <td><a href="{{ .Logo }}">Click for see</a></td>
+                    <td>{{ .Desc }}</td>
+                    <td>
+                        {{ .Content | markdown | truncate }} ...
+                    </td>
+                    <td>{{ .Status }}</td>
+                    <td>{{ .UpdatedAt }}</td>
+                    <td>{{ .CreatedAt }}</td>
+                </tr>
+                {{ end }}
+            </tbody>
+        </table>
+    </div>
+</div>
+{{ end }}

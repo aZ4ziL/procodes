@@ -33,7 +33,7 @@ func CreateNewUser(user *User) error {
 // return a user by passing the USERNAME
 func GetUserByUsername(username string) (User, error) {
 	var user User
-	err := db.Model(&User{}).Where("username = ?", username).First(&user).Error
+	err := db.Model(&User{}).Where("username = ?", username).First(&user).Preload("Articles").Error
 	return user, err
 }
 
@@ -41,7 +41,7 @@ func GetUserByUsername(username string) (User, error) {
 // return a user by passing the ID
 func GetUserByID(id uint) (User, error) {
 	var user User
-	err := db.Model(&User{}).Where("id = ?", id).First(&user).Error
+	err := db.Model(&User{}).Where("id = ?", id).First(&user).Preload("Articles").Error
 	return user, err
 }
 
@@ -49,6 +49,13 @@ func GetUserByID(id uint) (User, error) {
 // return a user by passing the EMAIL
 func GetUserByEmail(email string) (User, error) {
 	var user User
-	err := db.Model(&User{}).Where("email = ?", email).First(&user).Error
+	err := db.Model(&User{}).Where("email = ?", email).First(&user).Preload("Articles").Error
 	return user, err
+}
+
+func GetAllUsers() []User {
+	var users []User
+
+	db.Model(&User{}).Find(&users).Preload("Articles")
+	return users
 }

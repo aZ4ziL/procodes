@@ -1,0 +1,40 @@
+{{ define "users" }}
+<div class="tab-pane fade show active" id="ex3-tabs-1" role="tabpanel" aria-labelledby="ex3-tab-1">
+    <h1>User</h1>
+
+    <div class="table-responsive">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">ID</th>
+                    <th scope="col">First name</th>
+                    <th scope="col">Last name</th>
+                    <th scope="col">Username</th>
+                    <th scope="col">Email</th>
+                    <th scope="col">Password</th>
+                    <th scope="col">Is Superuser</th>
+                    <th scope="col">Is Active</th>
+                    <th scope="col">Last Login</th>
+                    <th scope="col">Date Joined</th>
+                </tr>
+            </thead>
+            <tbody>
+                {{ range .users }}
+                <tr>
+                    <th scope="row"><a href="#">{{ .ID }}</a></th>
+                    <td>{{ .FirstName }}</td>
+                    <td>{{ .LastName }}</td>
+                    <td>{{ .Username }}</td>
+                    <td>{{ .Email }}</td>
+                    <td>{{ .Password }}</td>
+                    <td>{{ .IsSuperuser }}</td>
+                    <td>{{ .IsActive }}</td>
+                    <td>{{ .LastLogin }}</td>
+                    <td>{{ .DateJoined }}</td>
+                </tr>
+                {{ end }}
+            </tbody>
+        </table>
+    </div>
+</div>
+{{ end }}

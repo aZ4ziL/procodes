@@ -26,5 +26,17 @@ func createMyRender() multitemplate.Renderer {
 		"getCategoryTitleByID": getBlogCategoryTitleByID,
 	}, "views/blogs/base.tmpl", "views/blogs/detail.tmpl")
 
+	// admin
+	r.AddFromFilesFuncs(
+		"admin_index",
+		template.FuncMap{
+			"markdown": markdown,
+			"truncate": truncate,
+		},
+		"views/admins/base.tmpl", "views/admins/index.tmpl", "views/admins/tabs/users.tmpl",
+		"views/admins/tabs/blog_categories.tmpl",
+		"views/admins/tabs/blog_articles.tmpl",
+	)
+
 	return r
 }

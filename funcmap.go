@@ -49,3 +49,7 @@ func getBlogCategoryTitleByID(id uint) string {
 	db.Model(&models.BlogCategory{}).Where("id = ?", id).First(&category)
 	return category.Title
 }
+
+func truncate(x string) string {
+	return x[:20]
+}
