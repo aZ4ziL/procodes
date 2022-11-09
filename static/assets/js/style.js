@@ -47,7 +47,7 @@ document.addEventListener("DOMContentLoaded", function () {
         speed: 40,
         strings: [
             "This website is a personal website running on an Ubuntu Linux server. And built by the programming language Go.",
-            "Didesain oleh Fajri Fath dengan bantuan framework Bootstrap dan Javascript Vanilla.",
+            "Designed by Fajri Fath with the help of Bootstrap framework and Vanilla Javascript.",
             // "<button class='btn btn-outline-dark'><a href=''><i class='fas fa-arrow-down fa-4x'></a></button>",
         ]
     }).go();
