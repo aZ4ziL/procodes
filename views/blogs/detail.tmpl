@@ -1,39 +1,32 @@
-{{ define "title" }}Blog - Procodes{{ end }}
+{{ define "title" }}
+{{ .article.Title }} - Procodes
+{{ end }}
+
+{{ define "style" }}
+<link rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.6.0/styles/github-dark-dimmed.min.css">
+{{ end }}
 
 {{ define "content" }}
 <!-- Main Article -->
 <div class="col-xl-8 col-md-12 mb-4">
     <div class="row">
         <div class="d-flex align-items-center justify-content-between mb-2 mt-4">
-            <h2 class="fw-bold">New Posts</h2>
+            <h2 class="fw-bold">{{ .article.Title }}</h2>
             {{ if .user }}
             {{ if .user.IsSuperuser }}
-            <button type="button" class="btn btn-primary" data-mdb-toggle="modal" data-mdb-target="#addBlogModal">Add
-                Article</button>
+            <button type="button" class="btn btn-primary" data-mdb-toggle="modal" data-mdb-target="#editBlogModal">Edit
+                Post</button>
             {{ end }}
             {{ end }}
         </div>
-
-        {{ range $key, $val := .articles }}
-        <div class="col-xl-6 col-md-12 mb-4" data-aos="fade-{{ if $key | isPrime }}left{{ else }}right{{ end }}"
-            data-aos-duration="1000" data-aos-easing="ease-in-out">
-            <div class="card shadow h-100">
-                <div class="bg-image hover-overlay ripple" data-mdb-ripple-color="light">
-                    <img src="{{ $val.Logo }}" alt="{{ $val.Title }}" class="img-fluid" />
-                    <a href="#!">
-                        <div class="mask" style="background-color: rgba(251, 251, 251, 0.15);"></div>
-                    </a>
-                </div>
-                <div class="card-body">
-                    <h5 class="card-title">{{ $val.Title }}</h5>
-                    <p class="card-text">
-                        {{ $val.Desc }}
-                    </p>
-                    <a href="/blog/detail/{{ $val.Slug }}" class="btn btn-primary">Read More</a>
-                </div>
-            </div>
+        <div class="col-xl-12 col-md-12 mb-4">
+            <img src="{{ .article.Logo }}" alt="{{ .article.Title }}" class="img-fluid my-4">
+            <div id="content"></div>
+            <script>
+                document.getElementById("content").innerHTML = "{{ .article.Content | markdown }}";
+            </script>
         </div>
-        {{ end }}
     </div>
 </div>
 <!-- Main Article -->
@@ -41,57 +34,66 @@
 {{ if .user }}
 {{ if .user.IsSuperuser }}
 <!-- Model Add Blog -->
-<div class="modal fade" id="addBlogModal" tabindex="-1" aria-labelledby="addBlogModalLabel" aria-hidden="true">
+<div class="modal fade" id="editBlogModal" tabindex="-1" aria-labelledby="editBlogModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="addBlogModalLabel">Add Article</h5>
+                <h5 class="modal-title" id="editBlogModalLabel">Edit Article {{ .article.CategoryID }}</h5>
                 <button type="button" class="btn-close" data-mdb-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <form action="/api/v1/article" method="post" id="addNewPostForm" enctype="multipart/form-data">
+                <form action="/api/v1/article" method="put" id="editPostForm" enctype="multipart/form-data">
                     <input type="hidden" name="author_id" id="author_id" value="{{ .user.ID }}">
+                    <input type="hidden" name="id" id="id" value="{{ .article.ID }}">
                     <div class="form-group mb-2">
                         <label for="category_id">Category</label>
                         <select name="category_id" id="category_id" class="form-control" required>
                             <option value="">Select category</option>
+                            {{ $categoryID := .article.CategoryID }}
                             {{ range .categories }}
-                            <option value="{{ .ID }}">{{ .Title }}</option>
+                            <option value="{{ .ID }}" {{ if eq .ID $categoryID }}selected{{ end }}>{{ .Title }}</option>
                             {{ end }}
                         </select>
                     </div>
 
                     <div class="form-group mb-2">
                         <label for="title">Title</label>
-                        <input type="text" name="title" id="title" class="form-control" required>
+                        <input type="text" name="title" id="title" class="form-control" value="{{ .article.Title }}"
+                            required>
                     </div>
 
                     <div class="form-group mb-2">
                         <label for="slug">Slug</label>
-                        <input type="text" name="slug" id="slug" class="form-control" required>
+                        <input type="text" name="slug" id="slug" class="form-control" value="{{ .article.Slug }}"
+                            required>
                     </div>
 
                     <div class="form-group mb-2">
                         <label for="logo">Logo</label>
-                        <input type="file" name="logo" id="logo" class="form-control" required>
+                        <a href="{{ .article.Logo }}">{{ .article.Logo }}</a>
+                        <input type="file" name="logo" id="logo" class="form-control">
                     </div>
 
                     <div class="form-group mb-2">
                         <label for="desc">Description</label>
-                        <input type="text" name="desc" id="desc" class="form-control" required>
+                        <input type="text" name="desc" id="desc" class="form-control" value="{{ .article.Desc }}"
+                            required>
                     </div>
 
                     <div class="form-group mb-2">
                         <label for="content">Content</label>
                         <textarea name="content" id="content" cols="30" rows="10" class="form-control"
-                            required></textarea>
+                            required>{{ .article.Content }}</textarea>
                     </div>
 
                     <div class="form-group mb-2">
                         <label for="status">Status</label>
                         <select name="status" id="status" class="form-control">
-                            <option value="DRAFTED">DRAFTED</option>
-                            <option value="PUBLISHED">PUBLISHED</option>
+                            <option value="">...</option>
+                            <option value="DRAFTED" {{ if eq .article.Status "DRAFTED" }}selected{{ end }}>DRAFTED
+                            </option>
+                            <option value="PUBLISHED" {{ if eq .article.Status "PUBLISHED" }}selected{{ end }}>PUBLISHED
+                            </option>
                         </select>
                     </div>
 
@@ -106,9 +108,12 @@
 <!-- Modal Add Blog -->
 {{ end }}
 {{ end }}
+
 {{ end }}
 
 {{ define "script" }}
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.6.0/highlight.min.js"></script>
+<script>hljs.highlightAll();</script>
 <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script>
     document.querySelector("#title").onkeyup = function () {
@@ -119,12 +124,12 @@
         document.querySelector("#slug").value = valueStriping;
     }
 
-    $("#addNewPostForm").submit(function (e) {
+    $("#editPostForm").submit(function (e) {
         var formData = new FormData($(this)[0]);
 
         $.ajax({
             url: "/api/v1/article",
-            type: "POST",
+            type: "PUT",
             dataType: "JSON",
             data: formData,
             cache: false,
@@ -138,7 +143,7 @@
                         text: data.message,
                     }).then(result => {
                         if (result.isConfirmed) {
-                            window.location.reload();
+                            window.location.href = "/blog/detail/" + $("#slug").val();
                         }
                     });
                 }

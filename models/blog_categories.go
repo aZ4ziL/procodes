@@ -30,3 +30,9 @@ func GetBlogCategoryBySlug(slug string) (BlogCategory, error) {
 	err := db.Model(&BlogCategory{}).Where("slug = ?", slug).First(&category).Error
 	return category, err
 }
+
+func GetAllBlogCategories() []BlogCategory {
+	var categories []BlogCategory
+	db.Model(&BlogCategory{}).Find(&categories)
+	return categories
+}

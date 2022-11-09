@@ -21,6 +21,10 @@ func createMyRender() multitemplate.Renderer {
 	r.AddFromFilesFuncs("blog_index", template.FuncMap{
 		"isPrime": isPrime,
 	}, "views/blogs/base.tmpl", "views/blogs/index.tmpl")
+	r.AddFromFilesFuncs("blog_detail", template.FuncMap{
+		"markdown":             markdown,
+		"getCategoryTitleByID": getBlogCategoryTitleByID,
+	}, "views/blogs/base.tmpl", "views/blogs/detail.tmpl")
 
 	return r
 }

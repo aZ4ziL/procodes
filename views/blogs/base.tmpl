@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Viper Code - Blogs</title>
+    <title>{{ block "title" . }}{{ end }}</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
@@ -17,16 +17,17 @@
         integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+    {{ block "style" . }}{{ end }}
 </head>
 
 <body>
 
+    {{ if .article }}
     <!-- Header -->
     <header class="header" id="home">
         <div class="header-box">
-            <h1>Procodes Blogs</h1>
-            <p>A free, fully responsive HTML5 + CSS3 site template designed by @ajlkn for HTML5 UP
-                and released for free under the Creative Commons license.</p>
+            <h1>{{ .article.Title }}</h1>
+            <p id="article-header-desc"></p>
             <button type="button"
                 class="btn btn-outline-white btn-rounded mt-4 p-4 d-inline-block d-xl-inline-block d-inline-md-block d-sm-none"
                 id="toNavbar">
@@ -35,6 +36,21 @@
         </div>
     </header>
     <!-- End header -->
+    {{ else }}
+    <!-- Header -->
+    <header class="header" id="home">
+        <div class="header-box">
+            <h1>Procodes Blogs</h1>
+            <p id="header-text"></p>
+            <button type="button"
+                class="btn btn-outline-white btn-rounded mt-4 p-4 d-inline-block d-xl-inline-block d-inline-md-block d-sm-none"
+                id="toNavbar">
+                <i class="fas fa-arrow-down fa-4x"></i>
+            </button>
+        </div>
+    </header>
+    <!-- End header -->
+    {{ end }}
 
     <!-- Content -->
     <div class="container">
@@ -53,7 +69,7 @@
                             <a class="nav-link" href="/">Home</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link active" href="/blogs">Blogs</a>
+                            <a class="nav-link active" href="/blog">Blogs</a>
                         </li>
                         {{ if .user }}
                         <li class="nav-item dropdown">
@@ -122,28 +138,6 @@
         </div>
     </div>
     <!-- Content -->
-
-    {{ if .user }}
-    {{ if .user.IsSuperuser }}
-    <!-- Model Add Blog -->
-    <div class="modal fade" id="addBlogModal" tabindex="-1" aria-labelledby="addBlogModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="addBlogModalLabel">Modal title</h5>
-                    <button type="button" class="btn-close" data-mdb-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">...</div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-mdb-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Save changes</button>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- Modal Add Blog -->
-    {{ end }}
-    {{ end }}
 
     <!-- Footer -->
     <footer class="text-center text-lg-start bg-dark text-muted mt-5" data-aos="flip-up" data-aos-duration="1000"
@@ -284,6 +278,22 @@
         AOS.init();
     </script>
     <script src="/static/assets/js/style.js"></script>
+
+    {{ block "script" . }}{{ end }}
+
+    <script src="https://unpkg.com/typeit@8.7.0/dist/index.umd.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            new TypeIt("#article-header-desc", {
+                waitUntilVisible: true,
+                speed: 40,
+                strings: [
+                    "{{ .article.Desc }}"
+                    // "<button class='btn btn-outline-dark'><a href=''><i class='fas fa-arrow-down fa-4x'></a></button>",
+                ]
+            }).go();
+        })
+    </script>
 </body>
 
 </html>
