@@ -53,3 +53,30 @@ func getBlogCategoryTitleByID(id uint) string {
 func truncate(x string) string {
 	return x[:20]
 }
+
+// Count The Group Chat
+func countTheUsers(users []*models.User) int {
+	var result int
+	for range users {
+		result += 1
+	}
+
+	return result
+}
+
+// checkUserInChatGroup
+func checkUserInChatGroup(userID uint, users []*models.User) bool {
+	var joined bool
+
+	for _, user := range users {
+		if user.ID == userID {
+			joined = true
+			break
+		} else {
+			joined = false
+			break
+		}
+	}
+
+	return joined
+}

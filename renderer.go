@@ -38,5 +38,21 @@ func createMyRender() multitemplate.Renderer {
 		"views/admins/tabs/blog_articles.tmpl",
 	)
 
+	// Chat
+	r.AddFromFilesFuncs(
+		"chat_index",
+		template.FuncMap{
+			"isPrime":              isPrime,
+			"countTheUsers":        countTheUsers,
+			"checkUserInChatGroup": checkUserInChatGroup,
+		},
+		"views/chats/index.tmpl",
+	)
+	r.AddFromFilesFuncs(
+		"chat_room",
+		template.FuncMap{},
+		"views/chats/room.tmpl",
+	)
+
 	return r
 }

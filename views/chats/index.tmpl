@@ -22,25 +22,10 @@
 
 <body>
 
-    {{ if .article }}
     <!-- Header -->
     <header class="header" id="home">
         <div class="header-box">
-            <h1>{{ .article.Title }}</h1>
-            <p id="article-header-desc"></p>
-            <button type="button"
-                class="btn btn-outline-white btn-rounded mt-4 p-4 d-inline-block d-xl-inline-block d-inline-md-block d-sm-none"
-                id="toNavbar">
-                <i class="fas fa-arrow-down fa-4x"></i>
-            </button>
-        </div>
-    </header>
-    <!-- End header -->
-    {{ else }}
-    <!-- Header -->
-    <header class="header" id="home">
-        <div class="header-box">
-            <h1>Procodes Blogs</h1>
+            <h1>Procodes Chat</h1>
             <p id="header-text"></p>
             <button type="button"
                 class="btn btn-outline-white btn-rounded mt-4 p-4 d-inline-block d-xl-inline-block d-inline-md-block d-sm-none"
@@ -50,7 +35,6 @@
         </div>
     </header>
     <!-- End header -->
-    {{ end }}
 
     <!-- Content -->
     <div class="container">
@@ -68,8 +52,11 @@
                         <li class="nav-item">
                             <a class="nav-link" href="/">Home</a>
                         </li>
+                        <li>
+                            <a href="/chat" class="nav-link active">Chat</a>
+                        </li>
                         <li class="nav-item">
-                            <a class="nav-link active" href="/blog">Blogs</a>
+                            <a class="nav-link" href="/blog">Blogs</a>
                         </li>
                         {{ if .user }}
                         <li class="nav-item dropdown">
@@ -111,30 +98,40 @@
         <!-- Main Article -->
         <div class="row">
 
-            {{ block "content" . }}{{ end }}
-
-            <!-- Sidebar -->
-            <div class="col-xl-4 col-md-12 mb-4">
+            <div class="row">
                 <div class="d-flex align-items-center justify-content-between mb-2 mt-4">
-                    <h2 class="fw-bold">Popular Posts</h2>
+                    <h2 class="fw-bold">Chat Group</h2>
+                    {{ if .user }}
+                    {{ if .user.IsSuperuser }}
+                    <button type="button" class="btn btn-primary" data-mdb-toggle="modal"
+                        data-mdb-target="#addBlogModal">Add
+                        Article</button>
+                    {{ end }}
+                    {{ end }}
                 </div>
 
-                <div class="row">
-                    <div class="col-xl-12 col-md-12 mb-2" data-aos="flip-up" data-aos-duration="1000"
-                        data-aos-easing="ease-in-out">
-                        <div class=" card">
-                            <h5 class="card-header">Featured</h5>
-                            <div class="card-body">
-                                <h5 class="card-title">Special title treatment</h5>
-                                <p class="card-text">With supporting text below as a natural lead-in to additional
-                                    content.</p>
-                                <a href="#" class="btn btn-primary">Go somewhere</a>
-                            </div>
+                {{ $userID := .user.ID }}
+                {{ range $key, $val := .groups }}
+                <div class="col-xl-3 col-md-12 mb-4" data-aos="fade-{{ if $key | isPrime }}left{{ else }}right{{ end }}"
+                    data-aos-duration="1000" data-aos-easing="ease-in-out">
+                    <div class="card shadow h-100">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ $val.Title }}</h5>
+                            <ul class="list-group my-3">
+                                <li class="list-group-item text-white">Admin: {{ $val.AdminID }}</li>
+                                <li class="list-group-item text-white">Member: {{ $val.Members | countTheUsers }}</li>
+                            </ul>
+                            {{ if checkUserInChatGroup $userID $val.Members }}
+                            <a href="/chat/{{ $val.ID }}" class="btn btn-sm btn-success">Enter</a>
+                            {{ else }}
+                            <a href="#" class="btn btn-sm btn-primary" id="joinGroupHandler"
+                                data-group-id="{{ $val.ID }}">Join</a>
+                            {{ end }}
                         </div>
                     </div>
                 </div>
+                {{ end }}
             </div>
-            <!-- Sidebar -->
         </div>
 
         <!-- Footer -->
@@ -281,9 +278,8 @@
     </script>
     <script src="/static/assets/js/style.js"></script>
 
-    {{ block "script" . }}{{ end }}
-
     <script src="https://unpkg.com/typeit@8.7.0/dist/index.umd.js"></script>
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script>
         document.addEventListener("DOMContentLoaded", function () {
             new TypeIt("#article-header-desc", {
@@ -294,6 +290,28 @@
                     // "<button class='btn btn-outline-dark'><a href=''><i class='fas fa-arrow-down fa-4x'></a></button>",
                 ]
             }).go();
+        })
+
+        // joinGroupHandler
+        $("#joinGroupHandler").on("click", function () {
+            var groupID = $(this).data("group-id");
+            $.ajax({
+                url: "/chat?join=" + groupID,
+                type: "GET",
+                dataType: "JSON",
+                success: function (response) {
+                    if (response.status == "success") {
+                        Swal.fire({
+                            icon: "success",
+                            text: response.message,
+                        }).then(result => {
+                            if (result.isConfirmed) {
+                                window.location.reload();
+                            }
+                        })
+                    }
+                }
+            })
         })
     </script>
 </body>

@@ -19,6 +19,8 @@ type User struct {
 	LastLogin   sql.NullTime  `json:"last_login"`
 	DateJoined  time.Time     `gorm:"autoCreateTime" json:"date_joined"`
 	Articles    []BlogArticle `gorm:"foreignKey:AuthorID" json:"articles"`
+	ChatGroups  []*ChatGroup  `gorm:"many2many:user_chat_groups" json:"chat_groups"`
+	ChatRooms   []ChatRoom    `gorm:"foreignKey:SenderID" json:"chat_rooms"`
 }
 
 // CreateNewUser
