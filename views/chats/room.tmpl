@@ -124,9 +124,11 @@
         </div>
 
         <div class="row justify-content-center">
-            <div class="col-lg-8">
-                <input type="text" id="chat-message-input" class="form-control" placeholder="Type a message...">
-                <button type="button" id="chat-message-submit" class="btn btn-primary">Send</button>
+            <div class="col-lg-8 d-flex align-items-top">
+                <textarea id="chat-message-input" class="form-control" placeholder="Type a message..."></textarea>
+                <div>
+                    <button type="button" id="chat-message-submit" class="btn btn-primary">Send</button>
+                </div>
             </div>
         </div>
 
@@ -146,7 +148,7 @@
 
     <script>
         var log = document.getElementById("chat-logs");
-        document.getElementById("chat-message-input").focus();
+        $("#chat-message-input").focus();
 
         function appendLog(item) {
             var doScroll = log.scrollTop > log.scrollHeight - log.clientHeight - 1;
@@ -224,6 +226,17 @@
                 appendLog(card);
             }
         }
+
+        var textAreaInput = document.getElementById("chat-message-input");
+        textAreaInput.addEventListener("keydown", function (e) {
+            const keyCode = e.which || e.keyCode;
+
+            if (keyCode === 13 && !e.shiftKey) {
+                e.preventDefault();
+
+                document.querySelector("#chat-message-submit").click();
+            }
+        })
 
         $("#chat-message-submit").on("click", function () {
             var messageInputDOM = $("#chat-message-input");

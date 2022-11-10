@@ -293,7 +293,7 @@
         })
 
         // joinGroupHandler
-        $("#joinGroupHandler").on("click", function () {
+        $("[id=joinGroupHandler]").on("click", function () {
             var groupID = $(this).data("group-id");
             $.ajax({
                 url: "/chat?join=" + groupID,
