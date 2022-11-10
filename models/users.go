@@ -8,19 +8,20 @@ import (
 )
 
 type User struct {
-	ID          uint          `gorm:"primaryKey" json:"id"`
-	FirstName   string        `gorm:"size:100" json:"first_name" validate:"required"`
-	LastName    string        `gorm:"size:100" json:"last_name" validate:"required"`
-	Username    string        `gorm:"size:100;unique;index" json:"username" validate:"required"`
-	Email       string        `gorm:"size:100;unique;index" json:"email" validate:"required, email"`
-	Password    string        `gorm:"size:255" validate:"required" json:"password"`
-	IsSuperuser bool          `gorm:"default:0" json:"is_superuser"`
-	IsActive    bool          `gorm:"default:1" json:"is_active"`
-	LastLogin   sql.NullTime  `json:"last_login"`
-	DateJoined  time.Time     `gorm:"autoCreateTime" json:"date_joined"`
-	Articles    []BlogArticle `gorm:"foreignKey:AuthorID" json:"articles"`
-	ChatGroups  []*ChatGroup  `gorm:"many2many:user_chat_groups" json:"chat_groups"`
-	ChatRooms   []ChatRoom    `gorm:"foreignKey:SenderID" json:"chat_rooms"`
+	ID              uint          `gorm:"primaryKey" json:"id"`
+	FirstName       string        `gorm:"size:100" json:"first_name" validate:"required"`
+	LastName        string        `gorm:"size:100" json:"last_name" validate:"required"`
+	Username        string        `gorm:"size:100;unique;index" json:"username" validate:"required"`
+	Email           string        `gorm:"size:100;unique;index" json:"email" validate:"required, email"`
+	Password        string        `gorm:"size:255" validate:"required" json:"password"`
+	IsSuperuser     bool          `gorm:"default:0" json:"is_superuser"`
+	IsActive        bool          `gorm:"default:1" json:"is_active"`
+	LastLogin       sql.NullTime  `json:"last_login"`
+	DateJoined      time.Time     `gorm:"autoCreateTime" json:"date_joined"`
+	Articles        []BlogArticle `gorm:"foreignKey:AuthorID" json:"articles"`
+	ChatGroups      []*ChatGroup  `gorm:"many2many:user_chat_groups" json:"chat_groups"`
+	AdminChatGroups []ChatGroup   `gorm:"foreignKey:AdminID" json:"admin_chat_groups"`
+	ChatRooms       []ChatRoom    `gorm:"foreignKey:SenderID" json:"chat_rooms"`
 }
 
 // CreateNewUser
