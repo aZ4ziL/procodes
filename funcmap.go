@@ -66,14 +66,11 @@ func countTheUsers(users []*models.User) int {
 
 // checkUserInChatGroup
 func checkUserInChatGroup(userID uint, users []*models.User) bool {
-	var joined bool
+	var joined bool = false
 
 	for _, user := range users {
 		if user.ID == userID {
 			joined = true
-			break
-		} else {
-			joined = false
 			break
 		}
 	}
