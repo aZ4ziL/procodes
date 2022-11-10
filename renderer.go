@@ -26,5 +26,8 @@ func createMyRender() multitemplate.Renderer {
 		"getCategoryTitleByID": getBlogCategoryTitleByID,
 	}, "views/blogs/base.tmpl", "views/blogs/detail.tmpl")
 
+	// Chats
+	r.AddFromFilesFuncs("chat_rooms", template.FuncMap{}, "views/chats/room.tmpl")
+
 	return r
 }

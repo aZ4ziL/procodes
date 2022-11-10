@@ -36,7 +36,7 @@ func main() {
 
 	go hub.Run()
 
-	router.GET("/ws", func(ctx *gin.Context) {
+	router.GET("/ws/:roomid", func(ctx *gin.Context) {
 		roomID := ctx.Param("roomid")
 		handlers.ServeWS(hub, roomID, ctx.Writer, ctx.Request)
 	})
@@ -45,6 +45,7 @@ func main() {
 	controllers.IndexController(router)
 	controllers.LoginRegisterLogout(router)
 	controllers.BlogController(router)
+	controllers.ChatController(router)
 
 	router.Run(":8000")
 }

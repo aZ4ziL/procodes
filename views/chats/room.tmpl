@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Room</title>
+</head>
+
+<body>
+
+    <textarea id="chatlogs" cols="50" rows="20"></textarea> <br>
+    <input type="text" id="chat-message-input"> <br>
+    <input type="button" id="chat-message-submit" value="Send">
+
+    <script>
+        const ws = new WebSocket(
+            "ws://" +
+            window.location.host +
+            "/ws/" +
+            "{{ .roomid }}"
+        );
+
+        ws.onclose = function (e) {
+            console.log("Werbsocket error closed, with status error:", e);
+        }
+
+        ws.onmessage = function (e) {
+            var logs = document.querySelector("#chatlogs");
+
+            logs.value += e.data;
+        }
+
+        document.querySelector("#chat-message-submit").addEventListener("click", function (e) {
+            e.preventDefault();
+
+            var messageInputDOM = document.querySelector("#chat-message-input");
+            var message = messageInputDOM.value;
+
+            ws.send(JSON.stringify({
+                "roomid": "{{ .roomid }}",
+                "message": message,
+            }))
+        })
+    </script>
+</body>
+
+</html>
