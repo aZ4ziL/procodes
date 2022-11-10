@@ -36,6 +36,7 @@ func main() {
 	controllers.LoginRegisterLogout(router)
 	controllers.BlogController(router)
 	controllers.ControllerAdmin(router)
+	controllers.ChatController(router)
 
 	router.Run(":8000")
 }

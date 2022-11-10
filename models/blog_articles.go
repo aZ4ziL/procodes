@@ -8,8 +8,8 @@ import (
 
 type BlogArticle struct {
 	ID         uint           `gorm:"primaryKey" json:"id"`
-	CategoryID uint           `json:"category_id" validate:"required"`
-	AuthorID   uint           `json:"author_id" validate:"required"`
+	CategoryID uint           `gorm:"index" json:"category_id" validate:"required"`
+	AuthorID   uint           `gorm:"index" json:"author_id" validate:"required"`
 	Title      string         `gorm:"size:100;unique;index" json:"title" validate:"required"`
 	Slug       string         `gorm:"size:100;unique;index" json:"slug" validate:"required"`
 	Logo       string         `gorm:"size:255" json:"logo" validate:"required"`
