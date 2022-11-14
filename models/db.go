@@ -15,8 +15,7 @@ func init() {
 }
 
 func GetDB() *gorm.DB {
-	dsn := "fajhri:rafi213fajri@tcp(103.176.79.3:3306)/procodes?charset=utf8mb4&parseTime=True&loc=Local"
-	// dsn := "root:rafi213fajri@tcp(127.0.0.1:3306)/procodes?charset=utf8mb4&parseTime=True&loc=Local"
+	dsn := "root:root@/procodes?charset=utf8mb4&parseTime=True&loc=Local"
 	db, err := gorm.Open(mysql.Open(dsn), &gorm.Config{})
 	if err != nil {
 		panic(err)
